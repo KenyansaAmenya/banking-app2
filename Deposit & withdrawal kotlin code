@@ -1,0 +1,79 @@
+
+fun main() {
+   // step 1 Create constants and variables
+   // create a variable to store the account balance
+    
+    var accountBalance = (0..1000).random()
+    println("The current balance is ${accountBalance} dollars.")
+    
+    val money = (0..1000).random()
+    println("Amount to be deposited/withdrawn: ${money} dollars.")
+    
+    // step 2 create a test variable
+    var output = 0
+    println("Initial Output Value: $output")
+    
+    // step 3 The withdrawal operation for checking & credit bank accounts
+   fun withdraw(amount: Int): Int {
+       accountBalance -= amount
+       println("Money withdrawn: $amount")
+       println("You successfully withdrew ${amount} dollars. The current balance is ${accountBalance} dollars.")
+       return amount
+   }
+   
+   // step 4 test the withdrawal operation
+   output =  withdraw(money)
+   println("The amount you withdrew is ${output} dollars.")
+   
+   // step 5: The withdrawal operation for debit accounts
+   
+   fun debitWithdraw(amount: Int): Int {
+       if (accountBalance == 0) {
+           println("Can't, withdraw no money on this account!")
+           return accountBalance
+       } else if (amount > accountBalance) {
+           println("Not enough money on this account! The debit balance is ${accountBalance} dollars.")
+           return 0
+       } else {
+           return withdraw(amount)
+       }
+   }
+   
+   // step 6: test the withdrawal operation
+   output = debitWithdraw(money)
+   println("Amount Withdrawn is: ${output} dollars")
+   
+   // Step 7: The deposit operation for checking and debit accounts
+   fun deposit(amount: Int): Int {
+       accountBalance += amount
+       println("Deposited amount: ${amount} dollars")
+       println("Updated account balance: ${accountBalance} dollars")
+       return amount
+   }
+// Step 8: Test the deposit  operation for checking and debit
+output = deposit(money)
+println("Amount deposited and returned: ${output} dollars")
+
+// Step 9: Implement the deposit operation for credit accounts
+fun creditDeposit(amount: Int): Int {
+    if (accountBalance == 0) {
+        println("Deposit status: You don't need to deposit anything account already paid off.")
+        return accountBalance
+    } else if (accountBalance + amount > 0) {
+        println("Deposit failed, you tried to oay off an amount greater than the credit balance")
+        println("Current balance is ${accountBalance} dollars.")
+        return 0
+    } else if (accountBalance == -amount) {
+        println("Updated Deposit Status: you deposited just enough to completely pay off the account")
+        return amount
+    } else {
+        // call the deposit function and return its output
+        return deposit(amount)
+    }
+}
+// step 10: test the deposit operation
+output = creditDeposit(money)
+println("Output after credit deposit: ${output} dollars")
+
+
+}
